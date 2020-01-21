@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Songr Albums</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/theme.css">
+</head>
+<body>
+    <header>
+        <h1>Songr</h1>
+        <p>The definitive source for song stuff!</p>
+    </header>
+    <main>
+        <h2>These Three Albums</h2>
+        <ul>
+            <li th:each="album : ${albums}">
+                <h3 th:text="'Album Title: ' + ${album.title}"></h3>
+                <h4 th:text="'Artist ' + ${album.artist}"></h4>
+                <p th:text="'Number of Songs: ' + ${album.songCount}"></p>
+                <p th:text="'Album Length: ' + ${album.length} + ' seconds'"></p>
+                <img th:alt="${album.title}" th:src="${album.imageUrl}">
+            </li>
+        </ul>
+    </main>
+    <footer>
+        <p>&copy; 2020 songr.com<p></p>
+    </footer>
+</body>
+</html>
