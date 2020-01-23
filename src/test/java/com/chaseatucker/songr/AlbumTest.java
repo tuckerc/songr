@@ -1,5 +1,6 @@
 package com.chaseatucker.songr;
 
+import com.chaseatucker.songr.model.Album;
 import org.junit.jupiter.api.BeforeAll;
 
 public class AlbumTest {
