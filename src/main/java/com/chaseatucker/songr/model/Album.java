@@ -1,14 +1,28 @@
-package com.chaseatucker.songr;
+package com.chaseatucker.songr.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.net.URL;
 import java.sql.Date;
 
+@Entity
 public class Album {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+  private long id;
   private String title;
   private String artist;
   private int songCount;
   private int length;
   private String imageUrl;
+
+  public Album() {}
 
   public Album(String title, String artist, int songCount, int length, String imageUrl) {
     this.title = title;

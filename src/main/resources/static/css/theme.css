@@ -1,3 +1,8 @@
+header {
+  margin-bottom: 2vh;
+  border-bottom: 1.5vh double black;
+}
+
 h1 {
   font-size: 10vh;
 }
@@ -7,17 +12,32 @@ header p {
 }
 
 main h2 {
-  font-size: 7vh;
+  font-size: 6vh;
+  margin-bottom: 2vh;
+  border-bottom: 0.25vh solid black;
 }
 
-li h3 {
+main h3 {
   font-size: 5vh;
+  margin-bottom: 2vh;
+  text-decoration: underline;
+}
+
+form {
+  font-size: 3.5vh;
+  padding: 1vh;
+  margin-bottom: 1.5vh;
+  border: 0.25vh dashed black;
 }
 
 li h4 {
-  font-size: 3vh;
+  font-size: 4vh;
+}
+
+li h5 {
+  font-size: 3.5vh;
 }
 
 li p {
-  font-size: 3vh;
+  font-size: 3.5vh;
 }
