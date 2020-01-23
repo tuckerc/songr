@@ -2,25 +2,32 @@ package com.chaseatucker.songr.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.net.URL;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 public class Album {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-
   private long id;
+
+  @Column(nullable = false)
   private String title;
+  @Column(nullable = false)
   private String artist;
+  @Column(nullable = false)
   private int songCount;
+  @Column(nullable = false)
   private int length;
+  @Column(nullable = false)
   private String imageUrl;
+
+  @OneToMany(mappedBy = "album")
+  private List<Song> songs;
+
 
   public Album() {}
 
@@ -71,4 +78,8 @@ public class Album {
   public void setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
   }
+
+  public List<Song> getSongs() { return songs; }
+
+  public long getId() { return id; }
 }

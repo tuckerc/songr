@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head th:fragment="head">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Fragments</title>
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/layout.css">
+  <link rel="stylesheet" type="text/css" href="/css/theme.css">
 </head>
 <body>
   <header th:fragment="header">
     <h1>Songr</h1>
     <p>The definitive source for song stuff!</p>
+    <nav>
+      <a href="/albums">Albums</a>
+    </nav>
   </header>
 
   <footer th:fragment="footer">
