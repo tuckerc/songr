@@ -2,6 +2,8 @@ package com.chaseatucker.songr.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AlbumRepository extends JpaRepository<Album, Long> {
+import java.util.List;
 
+public interface AlbumRepository extends JpaRepository<Album, Long> {
+  public List<Album> findByTitle(String album);
 }

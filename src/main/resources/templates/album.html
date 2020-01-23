@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="fragments/fragments :: head"></head>
+<body>
+    <header th:replace="fragments/fragments :: header"></header>
+    <main>
+        <ul>
+            <li>
+                <h4 th:text="'Album Title: ' + ${album.title}"></h4>
+                <h5 th:text="'Artist ' + ${album.artist}"></h5>
+                <p th:text="'Number of Songs: ' + ${album.songCount}"></p>
+                <p th:text="'Album Length: ' + ${album.length} + ' seconds'"></p>
+                <img th:alt="${album.title}" th:src="${album.imageUrl}">
+                <ol>
+                    <li th:each="song: ${album.songs}">
+                        <p th:text="${song.title} + ': ' + ${song.length} + ' seconds'"></p>
+                    </li>
+                </ol>
+                <h4>Add a Song to the Album</h4>
+                <form action="/album/addSong/" method="POST">
+                    <label>Title:<input type="text" name="title" required></label>
+                    <label>Length:<input type="number" name="length" required></label>
+                    <label>Track Number:<input type="number" name="trackNumber" required></label>
+                    <input type="hidden" name="album" th:value="${album.title}" required>
+                    <input type="submit" name="submit">
+                </form>
+            </li>
+        </ul>
+    </main>
+    <footer th:replace="fragments/fragments :: footer"></footer>
+</body>
+</html>

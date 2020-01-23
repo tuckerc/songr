@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Songr Albums</title>
-    <link rel="stylesheet" type="text/css" href="css/reset.css">
-    <link rel="stylesheet" type="text/css" href="css/layout.css">
-    <link rel="stylesheet" type="text/css" href="css/theme.css">
-</head>
+<head th:replace="fragments/fragments :: head"></head>
 <body>
     <header th:replace="fragments/fragments :: header"></header>
     <main>
@@ -22,11 +16,24 @@
         </form>
         <ul>
             <li th:each="album : ${albums}">
-                <h4 th:text="'Album Title: ' + ${album.title}"></h4>
+                <a th:href="'album/' + ${album.id}"><h4 th:text="'Album Title: ' + ${album.title}"></h4></a>
                 <h5 th:text="'Artist ' + ${album.artist}"></h5>
                 <p th:text="'Number of Songs: ' + ${album.songCount}"></p>
                 <p th:text="'Album Length: ' + ${album.length} + ' seconds'"></p>
-                <img th:alt="${album.title}" th:src="${album.imageUrl}">
+                <a th:href="'album/' + ${album.id}"><img th:alt="${album.title}" th:src="${album.imageUrl}"></a>
+                <ol>
+                    <li th:each="song: ${album.songs}">
+                        <p th:text="${song.trackNumber} + '. ' + ${song.title} + ': ' + ${song.length} + ' seconds'"></p>
+                    </li>
+                </ol>
+                <h4>Add a Song to the Album</h4>
+                <form action="/albums/addSong" method="POST">
+                    <label>Title:<input type="text" name="title" required></label>
+                    <label>Length:<input type="number" name="length" required></label>
+                    <label>Track Number:<input type="number" name="trackNumber" required></label>
+                    <input type="hidden" name="album" th:value="${album.title}" required>
+                    <input type="submit" name="submit">
+                </form>
             </li>
         </ul>
     </main>
