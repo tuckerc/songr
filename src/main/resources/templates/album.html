@@ -14,14 +14,16 @@
                 <ol>
                     <li th:each="song: ${album.songs}">
                         <p th:text="${song.title} + ': ' + ${song.length} + ' seconds'"></p>
+                        <form th:action="'/albums/' + ${album.id} + '/songs/' + ${song.id} + '/delete'" method="POST">
+                          <input type="submit" name="submit" value="Remove Song">    
+                      </form>
                     </li>
                 </ol>
                 <h4>Add a Song to the Album</h4>
-                <form action="/album/addSong/" method="POST">
+                <form th:action="'/albums/' + ${album.id} + '/songs/addSong'" method="POST">
                     <label>Title:<input type="text" name="title" required></label>
                     <label>Length:<input type="number" name="length" required></label>
                     <label>Track Number:<input type="number" name="trackNumber" required></label>
-                    <input type="hidden" name="album" th:value="${album.title}" required>
                     <input type="submit" name="submit">
                 </form>
             </li>
