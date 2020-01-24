@@ -39,34 +39,51 @@ public class SongrController {
     return "albums";
   }
 
-  @PostMapping("/albums")
+  @PostMapping("/albums/addAlbum")
   public RedirectView addAlbum(String title, String artist, int songCount, int length, String imageUrl) {
     Album newAlbum = new Album(title, artist, songCount, length, imageUrl);
     albumsRepo.save(newAlbum);
     return new RedirectView("/albums");
   }
 
-  @PostMapping("/albums/addSong")
-  public RedirectView albumsAddSong(String title, int length, int trackNumber, String album) {
-    List<Album> songAlbum = albumsRepo.findByTitle(album);
-    Song newSong = new Song(title, length, trackNumber, songAlbum.get(0));
-    songRepo.save(newSong);
-    return new RedirectView("/albums");
-  }
-
-  @GetMapping("/album/{id}")
+  @GetMapping("/albums/{id}")
   public String album(@PathVariable String id, Model m) {
     Album album = albumsRepo.getOne(Long.parseLong(id));
     m.addAttribute("album", album);
     return "album";
   }
 
-  @PostMapping("/album/addSong")
-  public RedirectView albumAddSong(String title, int length, int trackNumber, String album) {
-    List<Album> songAlbum = albumsRepo.findByTitle(album);
-    Song newSong = new Song(title, length, trackNumber, songAlbum.get(0));
+  @PostMapping("/albums/{id}/addSong")
+  public RedirectView albumsAddSong(@PathVariable String id, String title, int length, int trackNumber) {
+    Album songAlbum = albumsRepo.getOne(Long.parseLong(id));
+    Song newSong = new Song(title, length, trackNumber, songAlbum);
     songRepo.save(newSong);
-    List<Song> song = songRepo.findByTitleAndAlbum(newSong.getTitle(), newSong.getAlbum());
-    return new RedirectView("/album/" + song.get(0).getAlbum().getId());
+    return new RedirectView("/albums/");
+  }
+
+  @PostMapping("/albums/{id}/songs/addSong")
+  public RedirectView albumAddSong(@PathVariable String id, String title, int length, int trackNumber) {
+    Album songAlbum = albumsRepo.getOne(Long.parseLong(id));
+    Song newSong = new Song(title, length, trackNumber, songAlbum);
+    songRepo.save(newSong);
+    return new RedirectView("/albums/" + id);
+  }
+
+  @PostMapping("/albums/{id}/delete")
+  public RedirectView deleteAlbum(@PathVariable String id) {
+    albumsRepo.deleteById(Long.parseLong(id));
+    return new RedirectView("/albums");
+  }
+
+  @PostMapping("/albums/{albumID}/songs/{songID}/delete")
+  public RedirectView albumDeleteSong(@PathVariable String albumID, @PathVariable String songID) {
+    songRepo.deleteById(Long.parseLong(songID));
+    return new RedirectView("/albums/" + albumID);
+  }
+
+  @PostMapping("/albums/{albumID}/deleteSong/{songID}")
+  public RedirectView albumsDeleteSong(@PathVariable String albumID, @PathVariable String songID) {
+    songRepo.deleteById(Long.parseLong(songID));
+    return new RedirectView("/albums");
   }
 }
